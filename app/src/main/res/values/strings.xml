@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Alarm</string>
+    <string name="new_alarm_btn_label">Add new alarm</string>
+</resources>
