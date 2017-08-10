@@ -61,7 +61,7 @@ class AlarmDB extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             int requestCode = cursor.getInt(cursor.getColumnIndex(REQUEST_CODE));
             long timeInMillis = cursor.getLong(cursor.getColumnIndex(TIME_IN_MILLIS));
-            listOfAlarms.add(new Alarm(mCtx, requestCode, timeInMillis));
+            listOfAlarms.add(new Alarm(mCtx, requestCode, timeInMillis, true));
         }
         cursor.close();
         return listOfAlarms;
