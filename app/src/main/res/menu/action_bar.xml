@@ -6,7 +6,6 @@
         android:id="@+id/new_alarm_btn"
         android:title="@string/new_alarm_btn_label"
         android:icon="@drawable/ic_add_alarm_24dp"
-        app:showAsAction="always"
-        />
+        app:showAsAction="ifRoom" />
 
 </menu>

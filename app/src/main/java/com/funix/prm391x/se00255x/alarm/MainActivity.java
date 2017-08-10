@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mAlarmDB = new AlarmDB(mCtx);
         mListOfAlarms = mAlarmDB.load();
         mAdapter = new CustomAdapter(mCtx, R.layout.single_alarm, R.id.time_view, mListOfAlarms);
-        ListView mListView = (ListView) findViewById(R.id.alarms_listview);
+        ListView mListView = (ListView) findViewById(R.id.lsv_alarms);
         mListView.setAdapter(mAdapter);
     }
 

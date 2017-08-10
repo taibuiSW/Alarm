@@ -7,7 +7,7 @@
     tools:context="com.funix.prm391x.se00255x.alarm.MainActivity">
 
     <ListView
-        android:id="@+id/alarms_listview"
+        android:id="@+id/lsv_alarms"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
