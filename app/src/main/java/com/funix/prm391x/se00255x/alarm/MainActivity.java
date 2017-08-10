@@ -26,8 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private final Context CTX = this;
-
+    private Context mCtx = this;
     private ArrayList<Alarm> mListOfAlarms = new ArrayList<>();
     private CustomAdapter mAdapter;
     private AlarmDB mAlarmDB;
@@ -49,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAlarmDB = new AlarmDB(CTX);
+        mAlarmDB = new AlarmDB(mCtx);
         mListOfAlarms = mAlarmDB.load();
-        mAdapter = new CustomAdapter(CTX, R.layout.single_alarm, R.id.time_view, mListOfAlarms);
+        mAdapter = new CustomAdapter(mCtx, R.layout.single_alarm, R.id.time_view, mListOfAlarms);
         ListView mListView = (ListView) findViewById(R.id.alarms_listview);
         mListView.setAdapter(mAdapter);
     }
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addAlarmAtPosition(final int position) {
         Calendar calendar = Calendar.getInstance();
-        new TimePickerDialog(CTX, new TimePickerDialog.OnTimeSetListener() {
+        new TimePickerDialog(mCtx, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute, int second) {
                 createAlarm(position, hourOfDay, minute, second);
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateAlarm(int position, long timeInMillis) {
         int requestCode = mListOfAlarms.get(position).getRequestCode();
-        Alarm alarm = new Alarm(CTX, requestCode, timeInMillis);
+        Alarm alarm = new Alarm(mCtx, requestCode, timeInMillis);
         alarm.activate();
         mListOfAlarms.set(position, alarm);
         mAlarmDB.update(alarm);
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         Alarm alarm;
         long result;
         do {
-            alarm = new Alarm(CTX, getRandomId(), timeInMillis);
+            alarm = new Alarm(mCtx, getRandomId(), timeInMillis);
             result = mAlarmDB.insert(alarm);
         } while (result < 0);
         alarm.activate();
