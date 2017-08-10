@@ -87,7 +87,7 @@ public class AlarmService extends Service {
         Bundle bundle = intent.getBundleExtra(AlarmDB.TABLE_ALARM);
         int requestCode = bundle.getInt(AlarmDB.REQUEST_CODE);
         long timeInMillis = bundle.getLong(AlarmDB.TIME_IN_MILLIS);
-        new Alarm(this, requestCode, timeInMillis);
+        new Alarm(this, requestCode, timeInMillis, true);
     }
 }
 

@@ -14,7 +14,7 @@ class Alarm {
     private static final SimpleDateFormat TIME_FORMAT =
             new SimpleDateFormat("hh:mm:ss a", Locale.US);
 
-    private Context mContext;
+    private Context mCtx;
 
     int getRequestCode() {
         return mRequestCode;
@@ -28,8 +28,8 @@ class Alarm {
     private long mTimeInMillis;
     private String mFormattedTime;
 
-    Alarm(Context context, int requestCode, long timeInMillis) {
-        this.mContext = context;
+    Alarm(Context context, int requestCode, long timeInMillis, boolean setNow) {
+        this.mCtx = context;
         this.mRequestCode = requestCode;
 
         // prevent alarm from firing immediately
@@ -38,20 +38,23 @@ class Alarm {
         }
         this.mTimeInMillis = timeInMillis;
         this.mFormattedTime = TIME_FORMAT.format(new Date(mTimeInMillis));
+        if (setNow) {
+            this.set();
+        }
     }
 
     void set() {
-        Intent intent = new Intent(mContext, AlarmReceiver.class);
+        Intent intent = new Intent(mCtx, AlarmReceiver.class);
         intent.putExtra(AlarmDB.REQUEST_CODE, mRequestCode);
         intent.putExtra(AlarmDB.TIME_IN_MILLIS, mTimeInMillis);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                mContext, mRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mCtx, mRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         getAlarmManager().setExact(AlarmManager.RTC_WAKEUP, mTimeInMillis, pendingIntent);
     }
 
     void cancel() {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                mContext, mRequestCode, new Intent(mContext, AlarmReceiver.class), 0);
+                mCtx, mRequestCode, new Intent(mCtx, AlarmReceiver.class), 0);
         getAlarmManager().cancel(pendingIntent);
     }
 
@@ -60,7 +63,7 @@ class Alarm {
     }
 
     private AlarmManager getAlarmManager() {
-        return (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        return (AlarmManager) mCtx.getSystemService(Context.ALARM_SERVICE);
     }
 }
 

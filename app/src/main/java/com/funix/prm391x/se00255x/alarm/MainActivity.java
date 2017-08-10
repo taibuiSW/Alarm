@@ -93,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateAlarm(int position, long timeInMillis) {
         int requestCode = mListOfAlarms.get(position).getRequestCode();
-        Alarm alarm = new Alarm(mCtx, requestCode, timeInMillis);
-        alarm.set();
+        Alarm alarm = new Alarm(mCtx, requestCode, timeInMillis, true);
         mListOfAlarms.set(position, alarm);
         mAlarmDB.update(alarm);
     }
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Alarm alarm;
         long result;
         do {
-            alarm = new Alarm(mCtx, getRandomId(), timeInMillis);
+            alarm = new Alarm(mCtx, getRandomId(), timeInMillis, false);
             result = mAlarmDB.insert(alarm);
         } while (result < 0);
         alarm.set();
