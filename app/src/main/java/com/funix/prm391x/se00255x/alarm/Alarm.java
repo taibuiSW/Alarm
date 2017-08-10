@@ -40,7 +40,7 @@ class Alarm {
         this.mFormattedTime = TIME_FORMAT.format(new Date(mTimeInMillis));
     }
 
-    void activate() {
+    void set() {
         Intent intent = new Intent(mContext, AlarmReceiver.class);
         intent.putExtra(AlarmDB.REQUEST_CODE, mRequestCode);
         intent.putExtra(AlarmDB.TIME_IN_MILLIS, mTimeInMillis);
@@ -57,11 +57,6 @@ class Alarm {
 
     String getFormattedTime() {
         return mFormattedTime;
-    }
-
-    @Override
-    public String toString() {
-        return mRequestCode + "_" + mTimeInMillis;
     }
 
     private AlarmManager getAlarmManager() {

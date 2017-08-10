@@ -12,7 +12,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
             ArrayList<Alarm> allAlarms = new AlarmDB(context).load();
             for (Alarm alarm: allAlarms) {
-                alarm.activate();
+                alarm.set();
             }
         } else {
             Intent serviceIntent = new Intent(context, AlarmService.class);
