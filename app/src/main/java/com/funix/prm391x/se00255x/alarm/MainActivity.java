@@ -2,8 +2,6 @@ package com.funix.prm391x.se00255x.alarm;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,6 @@ import com.funix.prm391x.se00255x.timepickerwithsecond.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAlarmDB = new AlarmDB(mCtx);
         mListOfAlarms = mAlarmDB.load();
-        mAdapter = new CustomAdapter(mCtx, R.layout.single_alarm, R.id.time_view, mListOfAlarms);
+        mAdapter = new CustomAdapter();
         ListView mListView = (ListView) findViewById(R.id.lsv_alarms);
         mListView.setAdapter(mAdapter);
     }
@@ -118,11 +115,16 @@ public class MainActivity extends AppCompatActivity {
     private class CustomAdapter extends ArrayAdapter<Alarm> {
         LayoutInflater mInflater;
 
-        CustomAdapter(@NonNull Context context, @LayoutRes int resource,
-                      @IdRes int textViewResourceId, @NonNull List<Alarm> objects) {
-            super(context, resource, textViewResourceId, objects);
+        CustomAdapter() {
+            super(mCtx, R.layout.single_alarm, mListOfAlarms);
             mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
+
+//        CustomAdapter(@NonNull Context context, @LayoutRes int resource,
+//                      @IdRes int textViewResourceId, @NonNull List<Alarm> objects) {
+//            super(context, resource, textViewResourceId, objects);
+//            mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        }
 
         @NonNull
         @Override
