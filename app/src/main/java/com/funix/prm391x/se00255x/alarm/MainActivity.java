@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         CustomAdapter() {
             super(mCtx, R.layout.single_alarm, mListOfAlarms);
-            mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mInflater = LayoutInflater.from(mCtx);
         }
 
 //        CustomAdapter(@NonNull Context context, @LayoutRes int resource,
