@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static class ViewHolder {
-        TextView timeView;
-        TextView amPmView;
-        Button deleteBtn;
+        TextView mTimeView;
+        TextView mAmPmView;
+        Button mDeleteBtn;
     }
 
     private class CustomAdapter extends ArrayAdapter<Alarm> {
@@ -133,20 +133,20 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.single_alarm, parent, false);
                 holder = new ViewHolder();
-                holder.timeView = (TextView) convertView.findViewById(R.id.time_view);
-                holder.amPmView = (TextView) convertView.findViewById(R.id.amPm_view);
-                holder.deleteBtn = (Button) convertView.findViewById(R.id.delete_btn);
+                holder.mTimeView = (TextView) convertView.findViewById(R.id.time_view);
+                holder.mAmPmView = (TextView) convertView.findViewById(R.id.amPm_view);
+                holder.mDeleteBtn = (Button) convertView.findViewById(R.id.delete_btn);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
             String time = mListOfAlarms.get(position).getFormattedTime(); // "hh:mm:ss a"
-            holder.timeView.setText(time.substring(0, 8)); // "hh:mm:ss"
-            holder.amPmView.setText(time.substring(8, 11)); // " am" or " pm"
+            holder.mTimeView.setText(time.substring(0, 8)); // "hh:mm:ss"
+            holder.mAmPmView.setText(time.substring(8, 11)); // " am" or " pm"
 
             // update existing alarm
-            holder.timeView.setOnClickListener(new View.OnClickListener() {
+            holder.mTimeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     addAlarmAtPosition(position);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             // delete alarm when press delete button
-            holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Alarm alarm = mListOfAlarms.get(position);
