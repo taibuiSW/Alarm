@@ -1,4 +1,4 @@
-package com.funix.prm391x.se00255x.alarm;
+package com.funix.prm391x.se00255x.alarm.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,6 +12,11 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+
+import com.funix.prm391x.se00255x.alarm.R;
+import com.funix.prm391x.se00255x.alarm.data.Alarm;
+import com.funix.prm391x.se00255x.alarm.data.AlarmDB;
+import com.funix.prm391x.se00255x.alarm.utils.AlarmMgr;
 
 import java.io.IOException;
 
@@ -79,7 +84,9 @@ public class AlarmService extends Service {
                 .setSmallIcon(R.mipmap.ic_notification)
                 .setOngoing(true)
                 .setAutoCancel(true);
-        notificationMgr.notify(0, notification.build());
+        if (notificationMgr != null) {
+            notificationMgr.notify(0, notification.build());
+        }
     }
 
     // set a same alarm for the next day
@@ -87,7 +94,7 @@ public class AlarmService extends Service {
         Bundle bundle = intent.getBundleExtra(AlarmDB.TABLE_ALARM);
         int requestCode = bundle.getInt(AlarmDB.REQUEST_CODE);
         long timeInMillis = bundle.getLong(AlarmDB.TIME_IN_MILLIS);
-        new Alarm(this, requestCode, timeInMillis, true);
+        new AlarmMgr(this).set(new Alarm(requestCode, timeInMillis));
     }
 }
 

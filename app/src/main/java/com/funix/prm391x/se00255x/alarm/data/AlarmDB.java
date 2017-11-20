@@ -1,4 +1,4 @@
-package com.funix.prm391x.se00255x.alarm;
+package com.funix.prm391x.se00255x.alarm.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,18 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-class AlarmDB extends SQLiteOpenHelper {
+public class AlarmDB extends SQLiteOpenHelper {
     private static final String DB_NAME = "database";
-    static final String TABLE_ALARM = "alarm";
+    public static final String TABLE_ALARM = "alarm";
     // table columns
-    static final String REQUEST_CODE = "_requestCode";
-    static final String TIME_IN_MILLIS = "timeInMillis";
-    // MainActivity context
-    private Context mCtx;
+    public static final String REQUEST_CODE = "_requestCode";
+    public static final String TIME_IN_MILLIS = "timeInMillis";
 
-    AlarmDB(Context context) {
+    public AlarmDB(Context context) {
         super(context, DB_NAME, null, 1);
-        mCtx = context;
     }
 
     @Override
@@ -34,7 +31,7 @@ class AlarmDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    long insert(Alarm alarm) {
+    public long insert(Alarm alarm) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(REQUEST_CODE, alarm.getRequestCode());
@@ -42,26 +39,26 @@ class AlarmDB extends SQLiteOpenHelper {
         return db.insert(TABLE_ALARM, null, values);
     }
 
-    void update(Alarm alarm) {
+    public void update(Alarm alarm) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TIME_IN_MILLIS, alarm.getTimeInMillis());
         db.update(TABLE_ALARM, values, REQUEST_CODE + "=?", new String[]{"" + alarm.getRequestCode()});
     }
 
-    void delete(Alarm alarm) {
+    public void delete(Alarm alarm) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_ALARM, REQUEST_CODE + "=?", new String[]{"" + alarm.getRequestCode()});
     }
 
-    ArrayList<Alarm> load() {
+    public ArrayList<Alarm> query() {
         ArrayList<Alarm> listOfAlarms = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARM, null);
         while (cursor.moveToNext()) {
             int requestCode = cursor.getInt(cursor.getColumnIndex(REQUEST_CODE));
             long timeInMillis = cursor.getLong(cursor.getColumnIndex(TIME_IN_MILLIS));
-            listOfAlarms.add(new Alarm(mCtx, requestCode, timeInMillis, true));
+            listOfAlarms.add(new Alarm(requestCode, timeInMillis));
         }
         cursor.close();
         return listOfAlarms;

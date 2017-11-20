@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver" android:enabled="true">
+        <receiver android:name=".service.AlarmReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name=".AlarmService" android:enabled="true" android:exported="false"/>
+        <service android:name=".service.AlarmService" android:enabled="true" android:exported="false"/>
     </application>
 
 </manifest>
